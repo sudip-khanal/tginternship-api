@@ -24,7 +24,7 @@ def get_book(request, pk):
         except Book.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
     
-        serializer = Book(book)
+        serializer = BookSerializer(book)
         return Response(serializer.data)
 
 @api_view(['GET'])

@@ -5,12 +5,12 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view,authentication_classes,permission_classes
 
-from rest_framework.authentication import BasicAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 @api_view(['POST'])
-@authentication_classes([BasicAuthentication])
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def create_user(request):
     if request.method == 'POST':
@@ -22,7 +22,7 @@ def create_user(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
-@authentication_classes([BasicAuthentication])
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def get_user(request, pk):
     if request.method == 'GET':
@@ -35,6 +35,8 @@ def get_user(request, pk):
         return Response(serializer.data)
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def users(request):
     if request.method == 'GET':
         try:
@@ -46,7 +48,7 @@ def users(request):
 
 
 @api_view(['PUT'])
-@authentication_classes([BasicAuthentication])
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def update_user(request,pk):
     if request.method == 'PUT':
@@ -64,7 +66,7 @@ def update_user(request,pk):
 
 
 @api_view(['DELETE'])
-@authentication_classes([BasicAuthentication])
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def delete_user(request, pk):
     if request.method == 'DELETE':
